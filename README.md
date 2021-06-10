@@ -1,4 +1,4 @@
-![tests](https://github.com/github/docs/actions/workflows/php.yml/badge.svg)
+![tests](https://github.com/creatortsv/omnipay-manager-bundle/actions/workflows/php.yml/badge.svg)
 
 # Omnipay Manager Bundle
 
