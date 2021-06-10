@@ -1,0 +1,10 @@
+/.env
+/.env.test
+/.env.local.*
+/output/*
+/composer.lock
+/symfony.lock
+/var/
+/vendor/
+/phpunit.xml
+.phpunit.result.cache

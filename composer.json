@@ -1,0 +1,46 @@
+{
+  "name": "creatortsv/omnipay-manager-bundle",
+  "type": "symfony-bundle",
+  "description": "Omnipay manager bundle",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "creatortsv",
+      "email": "creatortsv@gmail.com"
+    }
+  ],
+  "require": {
+    "php": ">=7.4",
+    "ext-json": "*",
+    "omnipay/common": "^3.0",
+    "sensio/framework-extra-bundle": "^5.2",
+    "symfony/flex": "^1.9",
+    "symfony/framework-bundle": "^5.2",
+    "symfony/yaml": "^5.2"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^9.5"
+  },
+  "autoload": {
+    "psr-4": {
+      "Creatortsv\\OmnipayManagerBundle\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Creatortsv\\OmnipayManagerBundle\\Tests\\": "tests/"
+    }
+  },
+  "extra": {
+    "symfony": {
+      "allow-contrib": false,
+      "require": "^5.2"
+    }
+  },
+  "scripts": {
+    "test:coverage-html": [
+      "@putenv XDEBUG_MODE=coverage",
+      "php vendor/bin/phpunit -v --testdox --colors=always --coverage-html output/test/coverage.html"
+    ]
+  }
+}

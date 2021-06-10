@@ -1,0 +1,7 @@
+services:
+
+  Creatortsv\OmnipayManagerBundle\GatewayManger:
+    public: true
+    factory: ['Creatortsv\OmnipayManagerBundle\GatewayManger', 'instance']
+    arguments:
+      - '@service_container'
