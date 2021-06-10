@@ -1,6 +1,7 @@
+![tests](https://github.com/creatortsv/omnipay-manager-bundle/workflows/tests/badge.svg?branch=main)
+
 # Omnipay Manager Bundle
 
----
 This bundle provides you some logic to make your own payment service with different omnipay based gateways.
 
 ## 1. Installation
