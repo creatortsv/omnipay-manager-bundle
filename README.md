@@ -1,4 +1,4 @@
-![tests](https://github.com/creatortsv/omnipay-manager-bundle/actions/workflows/php.yml/badge.svg?branch=main)
+[![tests](https://github.com/creatortsv/omnipay-manager-bundle/actions/workflows/php.yml/badge.svg?branch=main)](https://github.com/creatortsv/omnipay-manager-bundle/actions/workflows/php.yml)
 
 # Omnipay Manager Bundle
 
@@ -31,7 +31,7 @@ class MyAdapter extends AbstractGatewayAdapter
 ```
 This classes will be automatically registered with the ```Creatortsv\OmnipayManagerBundle\GatewayManager``` by default
 
-The second, your classes should be implemented with required ```public static getOmnipayGatewayAlias``` method, this method should return the name of the **Omnipay** gateway which will be using with this adapter class
+The second, your classes should be implemented with required ```public static getOmnipayGatewayAlias``` method, this method should return the name of the **Omnipay** gateway which will be used with this adapter class
 
 For example:
 ```php
