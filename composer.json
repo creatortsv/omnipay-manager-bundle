@@ -2,6 +2,7 @@
   "name": "creatortsv/omnipay-manager-bundle",
   "type": "symfony-bundle",
   "description": "Omnipay manager bundle",
+  "minimum-stability": "stable",
   "license": "MIT",
   "authors": [
     {
@@ -38,6 +39,7 @@
     }
   },
   "scripts": {
+    "test": "php vendor/bin/phpunit -v --testdox --colors=always",
     "test:coverage-html": [
       "@putenv XDEBUG_MODE=coverage",
       "php vendor/bin/phpunit -v --testdox --colors=always --coverage-html output/test/coverage.html"

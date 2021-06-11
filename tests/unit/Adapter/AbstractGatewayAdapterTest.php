@@ -6,11 +6,9 @@ namespace unit\Adapter;
 
 use Creatortsv\OmnipayManagerBundle\Adapter\AbstractGatewayAdapter;
 use Omnipay\Common\GatewayInterface;
-use Omnipay\Common\Http\ClientInterface;
 use ReflectionException;
 use ReflectionProperty;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
-use Symfony\Component\HttpFoundation\Request;
 
 class AbstractGatewayAdapterTest extends KernelTestCase
 {
