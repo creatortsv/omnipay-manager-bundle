@@ -20,7 +20,7 @@ composer require creatortsv/omnipay-kuberaco
 
 ## 2. Configuration
 ### Default configuration
-The first thing that you should is supposed to create your ```Adapter``` classes for each of the **Omnipay** gateway extended with ```AbstractGatewayAdapter``` class
+The first thing that you should is supposed to create your ```Adapter``` extended with ```AbstractGatewayAdapter``` class for each **Omnipay** gateway package which you're going to use
 ```php
 use Creatortsv\OmnipayManagerBundle\Adapter\AbstractGatewayAdapter;
 // ...
