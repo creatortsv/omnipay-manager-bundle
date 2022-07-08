@@ -10,8 +10,6 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 /**
  * Class CreatortsvOmnipayManagerBundle
- *
- * @phpcs:disable SlevomatCodingStandard.Files.TypeNameMatchesFileName.NoMatchBetweenTypeNameAndFileName
  */
 class CreatortsvOmnipayManagerBundle extends Bundle
 {

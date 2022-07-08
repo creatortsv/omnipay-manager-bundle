@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Creatortsv\OmnipayManagerBundle\Tests\Unit;
 
 use Creatortsv\OmnipayManagerBundle\Adapter\AbstractGatewayAdapter;
-use Creatortsv\OmnipayManagerBundle\GatewayManger;
+use Creatortsv\OmnipayManagerBundle\GatewayManager;
 use Exception;
 use InvalidArgumentException;
 use ReflectionProperty;
@@ -25,19 +25,19 @@ class GatewayManagerTest extends KernelTestCase
     }
 
     /**
-     * @return array<GatewayManger>
+     * @return array<GatewayManager>
      * @throws Exception
      */
     public function testGetGatewayManager(): array
     {
         $injected = $this
             ->serviceContainer
-            ->get(GatewayManger::class);
+            ->get(GatewayManager::class);
 
-        $directly = GatewayManger::instance($this->serviceContainer);
+        $directly = GatewayManager::instance($this->serviceContainer);
 
-        $this->assertInstanceOf(GatewayManger::class, $injected);
-        $this->assertInstanceOf(GatewayManger::class, $directly);
+        $this->assertInstanceOf(GatewayManager::class, $injected);
+        $this->assertInstanceOf(GatewayManager::class, $directly);
         $this->assertEquals($directly, $injected);
 
         return [$injected, $directly];
@@ -46,8 +46,8 @@ class GatewayManagerTest extends KernelTestCase
     /**
      * @depends testGetGatewayManager
      *
-     * @param array<GatewayManger> $managerInstances
-     * @return array<GatewayManger>
+     * @param array<GatewayManager> $managerInstances
+     * @return array<GatewayManager>
      */
     public function testAddGatewayAdapter(array $managerInstances): array
     {
@@ -59,8 +59,7 @@ class GatewayManagerTest extends KernelTestCase
 
         $injected->addGatewayAdapter($adapterClass);
 
-        $adaptersProperty = new ReflectionProperty(GatewayManger::class, 'adapters');
-        $adaptersProperty->setAccessible(true);
+        $adaptersProperty = new ReflectionProperty(GatewayManager::class, 'adapters');
         $expectedAdapters = [$gateway => $adapterClass];
 
         $this->assertSame($expectedAdapters, $adaptersProperty->getValue($injected));
@@ -72,7 +71,7 @@ class GatewayManagerTest extends KernelTestCase
     /**
      * @depends testAddGatewayAdapter
      *
-     * @param array<GatewayManger|AbstractGatewayAdapter> $arguments
+     * @param array<GatewayManager|AbstractGatewayAdapter> $arguments
      * @throws Exception
      */
     public function testUseGatewayAdapter(array $arguments): void
@@ -87,7 +86,7 @@ class GatewayManagerTest extends KernelTestCase
             ->with($adapterClass)
             ->willReturn($adapter);
 
-        $directly = GatewayManger::instance($containerMock);
+        $directly = GatewayManager::instance($containerMock);
 
         $this->assertInstanceOf($adapterClass, $injected->use($gatewayAlias));
         $this->assertInstanceOf($adapterClass, $directly->use($gatewayAlias));
@@ -95,7 +94,7 @@ class GatewayManagerTest extends KernelTestCase
 
     public function testErrorWhenAddAdapter(): void
     {
-        $manager = GatewayManger::instance($this->serviceContainer);
+        $manager = GatewayManager::instance($this->serviceContainer);
 
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('Adapter class "UndefinedAdapterClass" not found');
@@ -108,7 +107,7 @@ class GatewayManagerTest extends KernelTestCase
      */
     public function testErrorWhenUseAdapter(): void
     {
-        $manager = GatewayManger::instance($this->serviceContainer);
+        $manager = GatewayManager::instance($this->serviceContainer);
 
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('Gateway adapter for the alias "UndefinedAlias" is not registered');

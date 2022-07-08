@@ -138,14 +138,15 @@ This symfony features provide you different solutions to configure your adapters
 
 ## How to use
 After you've configured your adapters all you have to do is inject ```GatewayManager``` into your service class or controller method and use it
+
 ```php
-use Creatortsv\OmnipayManagerBundle\GatewayManger;
+use Creatortsv\OmnipayManagerBundle\GatewayManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class MyController extends AbstractController
 {
     // ...
-    public function createPayment(GatewayManger $manager)
+    public function createPayment(GatewayManager $manager)
     {
         // ...
         $response = $manager

@@ -5,22 +5,19 @@ declare(strict_types=1);
 namespace Creatortsv\OmnipayManagerBundle\DependencyInjection\Compiler;
 
 use Creatortsv\OmnipayManagerBundle\Adapter\ShouldBeManagedInterface;
-use Creatortsv\OmnipayManagerBundle\GatewayManger;
+use Creatortsv\OmnipayManagerBundle\GatewayManager;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
-/**
- * @phpcs:disable SlevomatCodingStandard.Files.TypeNameMatchesFileName.NoMatchBetweenTypeNameAndFileName
- */
 class CreatortsvOmnipayManagerPass implements CompilerPassInterface
 {
     public function process(ContainerBuilder $container): void
     {
-        if (!$container->hasDefinition(GatewayManger::class)) {
+        if (!$container->hasDefinition(GatewayManager::class)) {
             return;
         }
 
-        $definition = $container->findDefinition(GatewayManger::class);
+        $definition = $container->findDefinition(GatewayManager::class);
         $adapterIds = array_keys($container->findTaggedServiceIds(ShouldBeManagedInterface::TAG));
 
         foreach ($adapterIds as $id) {

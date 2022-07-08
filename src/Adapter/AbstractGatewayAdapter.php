@@ -9,9 +9,6 @@ use Omnipay\Common\Http\ClientInterface;
 use Omnipay\Omnipay;
 use Symfony\Component\HttpFoundation\Request;
 
-/**
- * @phpcs:disable SlevomatCodingStandard.Files.TypeNameMatchesFileName.NoMatchBetweenTypeNameAndFileName
- */
 abstract class AbstractGatewayAdapter implements ShouldBeManagedInterface
 {
     protected GatewayInterface $gateway;
@@ -47,13 +44,7 @@ abstract class AbstractGatewayAdapter implements ShouldBeManagedInterface
         return null;
     }
 
-    /**
-     * @phpcs:disable SlevomatCodingStandard.TypeHints.DisallowMixedTypeHint.DisallowedMixedTypeHint
-     * @phpcs:disable SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingTraversableTypeHintSpecification
-     *
-     * @return mixed
-     */
-    final public function __call(string $method, array $arguments)
+    final public function __call(string $method, array $arguments): mixed
     {
         return $this->getGateway()->$method(...$arguments);
     }

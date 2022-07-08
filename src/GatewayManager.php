@@ -12,7 +12,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 /**
  * @phpcs:disable SlevomatCodingStandard.Files.TypeNameMatchesFileName.NoMatchBetweenTypeNameAndFileName
  */
-final class GatewayManger
+final class GatewayManager
 {
     /**
      * @var array<string|AbstractGatewayAdapter>
@@ -21,14 +21,14 @@ final class GatewayManger
     
     private ContainerInterface $container;
     
-    private static ?GatewayManger $instance = null;
+    private static ?GatewayManager $instance = null;
 
     private function __construct(ContainerInterface $container)
     {
         $this->setContainer($container);
     }
     
-    public static function instance(ContainerInterface $container): GatewayManger
+    public static function instance(ContainerInterface $container): GatewayManager
     {
         if (self::$instance === null) {
             self::$instance = new self($container);
@@ -39,7 +39,7 @@ final class GatewayManger
         return self::$instance;
     }
     
-    public function addGatewayAdapter(string $adapterClass): GatewayManger
+    public function addGatewayAdapter(string $adapterClass): GatewayManager
     {
         if (!class_exists($adapterClass)) {
             throw new InvalidArgumentException(
