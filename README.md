@@ -38,7 +38,7 @@ The second, your classes should be implemented with required ```public static ge
 For example:
 ```php
 // ...
-class MyAdapter extends AbstractGatewayAdapter
+class MyAdapter extends OmnipayGatewayAdapter
 {
     // ...
     public static function getOmnipayGatewayAlias(): string
