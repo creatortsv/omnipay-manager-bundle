@@ -1,25 +1,8 @@
-/.env
-/.env.test
-/.env.local.*
-/output/*
+/.idea
 /composer.lock
-/symfony.lock
-/var/
-/vendor/
-/phpunit.xml
-.phpunit.result.cache
-
-###> symfony/framework-bundle ###
-/.env.local
-/.env.local.php
-/.env.*.local
-/config/secrets/prod/prod.decrypt.private.php
-/public/bundles/
-/var/
-/vendor/
-###< symfony/framework-bundle ###
+/var
+/vendor
 
 ###> phpunit/phpunit ###
-/phpunit.xml
-.phpunit.result.cache
+/.phpunit.result.cache
 ###< phpunit/phpunit ###

@@ -21,10 +21,12 @@ composer require creatortsv/omnipay-kuberaco
 ## 2. Configuration
 ### Default configuration
 The first thing that you should is supposed to create your ```Adapter``` extended with ```AbstractGatewayAdapter``` class for each **Omnipay** gateway package which you're going to use
+
 ```php
-use Creatortsv\OmnipayManagerBundle\Adapter\AbstractGatewayAdapter;
 // ...
-class MyAdapter extends AbstractGatewayAdapter
+use Creatortsv\OmnipayManagerBundle\Adapter\OmnipayGatewayAdapter;
+
+class MyAdapter extends OmnipayGatewayAdapter
 {
     // ...
 }
@@ -60,82 +62,6 @@ There are couple different ways to do that:
 - Inject some other arguments which you can describe in config files
 - Override ```getHttpClient``` and ```getHttpRequest``` methods to change the default client, and the request objects for the **Omnipay** gateway
 
-#### Injecting services
-In the example below, we just injected simple service directly from the container, without any modification of config files
-```php
-use App\Repository\ClientRepository;
-
-class MyAdapter extends AbstractGatewayAdapter
-{
-    // ...
-    private ClientRepository $clientRepository;
-    // ...
-    public function __construct(ClientRepository $clientRepository)
-    {
-        $this->clientRepository = $clientRepository;
-    
-        parent::__construct(); // required
-    }
-}
-```
-Of Course, you can do more difficult injecting logic, and inject some variables, or pass into constructor different arguments.
-To do that you should describe this adapter in your ```config/services.yaml``` file.
-```yaml
-services:
-  # ...
-  App\Adapter\Gateway\MyAdapter:
-    arguments:
-      $clientRepository: '@App\Repository\ClientRepository'
-      $adminEmail: 'manager@example.com'
-```
-Then you can use them in your adapter construct method
-```php
-use App\Repository\ClientRepository;
-
-class MyAdapter extends AbstractGatewayAdapter
-{
-    // ...
-    private ClientRepository $clientRepository;
-    
-    private string $email;
-    // ...
-    public function __construct(ClientRepository $clientRepository, string $adminEmail)
-    {
-        $this->clientRepository = $clientRepository;
-        $this->email = $adminEmail;
-    
-        parent::__construct(); // required
-    }
-}
-```
-Also, you can use dynamic number of the arguments
-```yaml
-services:
-  # ...
-  App\Adapter\Gateway\MyAdapter:
-    arguments:
-      - '@App\Repository\ClientRepository'
-      - '@App\Repository\CustomerRepository'
-```
-After that, use it in the constructor method of your adapter class
-```php
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface;
-
-class MyAdapter extends AbstractGatewayAdapter
-{
-    // ...
-    public function __construct(ServiceEntityRepositoryInterface ...$repositories)
-    {
-        // ...
-    
-        parent::__construct(); // required
-    }
-}
-```
-This symfony features provide you different solutions to configure your adapters
-
-> Note: All available service configuration options you can read in the official symfony documentation
-
 ## How to use
 After you've configured your adapters all you have to do is inject ```GatewayManager``` into your service class or controller method and use it
 
@@ -148,10 +74,10 @@ class MyController extends AbstractController
     // ...
     public function createPayment(GatewayManager $manager)
     {
-        // ...
         $response = $manager
-            ->use('Kuberaco')
+            ->get('Kuberaco')
             ->createPayment(); // Your described method to do payment in the same way for different gateways
+        
         // ...
     }
 }

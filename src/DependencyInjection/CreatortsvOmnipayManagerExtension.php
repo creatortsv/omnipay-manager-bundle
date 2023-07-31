@@ -4,29 +4,29 @@ declare(strict_types=1);
 
 namespace Creatortsv\OmnipayManagerBundle\DependencyInjection;
 
-use Creatortsv\OmnipayManagerBundle\Adapter\ShouldBeManagedInterface;
-use Exception;
-use phpDocumentor\Reflection\Types\Mixed_;
-use Symfony\Component\Config\FileLocator;
+use Creatortsv\OmnipayManagerBundle\Adapter\GatewayAdapterInterface;
+use Creatortsv\OmnipayManagerBundle\Factory\OmnipayGatewayFactory;
+use Creatortsv\OmnipayManagerBundle\GatewayManager;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Extension\Extension;
-use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 
 class CreatortsvOmnipayManagerExtension extends Extension
 {
     /**
-     * @param array<Mixed_> $configs
-     * @throws Exception
-     *
-     * @phpcs:disable SlevomatCodingStandard.Functions.UnusedParameter.UnusedParameter
+     * @inheritDoc
      */
     public function load(array $configs, ContainerBuilder $container): void
     {
-        $loader = new YamlFileLoader($container, new FileLocator(__DIR__ . '/../../config'));
-        $loader->load('services.yml');
+        $container->register(OmnipayGatewayFactory::class, OmnipayGatewayFactory::class);
+        $container->registerForAutoconfiguration(GatewayAdapterInterface::class)->addTag(
+            GatewayAdapterInterface::class,
+        );
 
-        $container
-            ->registerForAutoconfiguration(ShouldBeManagedInterface::class)
-            ->addTag(ShouldBeManagedInterface::TAG);
+        $definition = new Definition(GatewayManager::class);
+        $definition->setShared(true);
+        $definition->setPublic($container->getParameter('kernel.environment') === 'test');
+
+        $container->setDefinition(GatewayManager::class, $definition);
     }
 }
